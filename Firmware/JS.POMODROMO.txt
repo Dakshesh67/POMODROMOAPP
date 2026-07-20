@@ -1,0 +1,518 @@
+// ==============================
+// POMODORO PRO v1.5
+// FINAL JAVASCRIPT
+// ==============================
+
+
+// Elements
+
+const timer = document.getElementById("timer");
+const mode = document.getElementById("mode");
+
+const startBtn = document.getElementById("startBtn");
+const pauseBtn = document.getElementById("pauseBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+const focusInput = document.getElementById("focusInput");
+const breakInput = document.getElementById("breakInput");
+
+const sessionDisplay = document.getElementById("sessions");
+
+const themeBtn = document.getElementById("themeBtn");
+
+const progressCircle = document.querySelector(".progress-circle");
+
+
+
+// Variables
+
+let focusMinutes = Number(focusInput.value) || 25;
+let breakMinutes = Number(breakInput.value) || 5;
+
+
+let timeLeft = focusMinutes * 60;
+
+let totalTime = timeLeft;
+
+
+let timerInterval = null;
+
+let isRunning = false;
+
+let isFocus = true;
+
+
+let sessions =
+Number(localStorage.getItem("sessions")) || 0;
+
+
+
+// Circle
+
+const circleLength = 565;
+
+
+if(progressCircle){
+
+    progressCircle.style.strokeDasharray =
+    circleLength;
+
+}
+
+
+
+// Load sessions
+
+if(sessionDisplay){
+
+    sessionDisplay.textContent =
+    sessions;
+
+}
+
+
+
+
+
+// ==============================
+// Display Timer
+// ==============================
+
+function updateDisplay(){
+
+
+    let minutes =
+    Math.floor(timeLeft / 60);
+
+
+    let seconds =
+    timeLeft % 60;
+
+
+
+    timer.textContent =
+
+    String(minutes).padStart(2,"0")
+    +
+    ":"
+    +
+    String(seconds).padStart(2,"0");
+
+
+
+    updateCircle();
+
+}
+
+
+
+
+// ==============================
+// Progress Ring
+// ==============================
+
+function updateCircle(){
+
+
+    if(!progressCircle)
+    return;
+
+
+    let progress =
+    timeLeft / totalTime;
+
+
+    let offset =
+    circleLength -
+    (circleLength * progress);
+
+
+
+    progressCircle.style.strokeDashoffset =
+    offset;
+
+
+}
+
+
+
+
+
+// ==============================
+// Alarm
+// ==============================
+
+function playAlarm(){
+
+
+    let sound = new Audio(
+
+    "https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"
+
+    );
+
+
+    sound.play();
+
+}
+
+
+
+
+// ==============================
+// Start Timer
+// ==============================
+
+function startTimer(){
+
+
+    if(isRunning)
+    return;
+
+
+
+    focusMinutes =
+    Number(focusInput.value) || 25;
+
+
+    breakMinutes =
+    Number(breakInput.value) || 5;
+
+
+
+    isRunning = true;
+
+
+    timer.classList.add(
+        "timer-running"
+    );
+
+
+
+    timerInterval =
+    setInterval(()=>{
+
+
+        if(timeLeft > 0){
+
+
+            timeLeft--;
+
+            updateDisplay();
+
+
+        }
+
+        else{
+
+
+            playAlarm();
+
+
+
+            if(isFocus){
+
+
+                isFocus = false;
+
+
+                mode.textContent =
+                "☕ Break Time";
+
+
+                timeLeft =
+                breakMinutes * 60;
+
+
+                totalTime =
+                timeLeft;
+
+
+            }
+
+
+            else{
+
+
+                isFocus = true;
+
+
+
+                sessions++;
+
+
+                localStorage.setItem(
+                    "sessions",
+                    sessions
+                );
+
+
+                if(sessionDisplay){
+
+                    sessionDisplay.textContent =
+                    sessions;
+
+                }
+
+
+
+                mode.textContent =
+                "🍅 Focus Time";
+
+
+
+                timeLeft =
+                focusMinutes * 60;
+
+
+
+                totalTime =
+                timeLeft;
+
+
+            }
+
+
+
+            updateDisplay();
+
+
+        }
+
+
+    },1000);
+
+
+}
+
+
+
+
+
+// ==============================
+// Pause
+// ==============================
+
+function pauseTimer(){
+
+
+    clearInterval(timerInterval);
+
+
+    isRunning = false;
+
+
+    timer.classList.remove(
+        "timer-running"
+    );
+
+
+}
+
+
+
+
+
+// ==============================
+// Reset
+// ==============================
+
+function resetTimer(){
+
+
+    pauseTimer();
+
+
+
+    focusMinutes =
+    Number(focusInput.value) || 25;
+
+
+    breakMinutes =
+    Number(breakInput.value) || 5;
+
+
+
+    isFocus = true;
+
+
+    timeLeft =
+    focusMinutes * 60;
+
+
+    totalTime =
+    timeLeft;
+
+
+
+    mode.textContent =
+    "🍅 Focus Time";
+
+
+
+    updateDisplay();
+
+
+}
+
+
+
+
+
+// ==============================
+// Dark Mode
+// ==============================
+
+
+let darkMode =
+localStorage.getItem("darkMode")
+===
+"true";
+
+
+
+if(darkMode){
+
+    document.body.classList.add(
+        "dark"
+    );
+
+    themeBtn.textContent =
+    "☀️ Light Mode";
+
+}
+
+
+
+
+
+themeBtn.addEventListener(
+"click",
+()=>{
+
+
+    document.body.classList.toggle(
+        "dark"
+    );
+
+
+
+    darkMode =
+    document.body.classList.contains(
+        "dark"
+    );
+
+
+
+    localStorage.setItem(
+        "darkMode",
+        darkMode
+    );
+
+
+
+    themeBtn.textContent =
+
+    darkMode
+
+    ?
+
+    "☀️ Light Mode"
+
+    :
+
+    "🌙 Dark Mode";
+
+
+});
+
+
+
+
+
+
+// ==============================
+// Buttons
+// ==============================
+
+
+startBtn.addEventListener(
+"click",
+startTimer
+);
+
+
+
+pauseBtn.addEventListener(
+"click",
+pauseTimer
+);
+
+
+
+resetBtn.addEventListener(
+"click",
+resetTimer
+);
+
+
+
+
+
+
+// ==============================
+// Keyboard Controls
+// Space = Start/Pause
+// R = Reset
+// ==============================
+
+
+document.addEventListener(
+"keydown",
+(e)=>{
+
+
+    if(e.code === "Space"){
+
+
+        e.preventDefault();
+
+
+
+        if(isRunning){
+
+            pauseTimer();
+
+        }
+
+        else{
+
+            startTimer();
+
+        }
+
+
+    }
+
+
+
+    if(e.key.toLowerCase()==="r"){
+
+
+        resetTimer();
+
+
+    }
+
+
+
+});
+
+
+
+
+
+
+// Initial Load
+
+updateDisplay();

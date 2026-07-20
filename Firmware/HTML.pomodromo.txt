@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pomodoro Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🍅 Pomodoro Pro</h1>
+
+    <p id="mode">🍅 Focus Time</p>
+
+
+    <!-- Timer Circle -->
+
+    <div class="timer-circle">
+
+        <svg>
+
+            <circle 
+            class="background-circle"
+            cx="100"
+            cy="100"
+            r="90">
+            </circle>
+
+
+            <circle 
+            class="progress-circle"
+            cx="100"
+            cy="100"
+            r="90">
+            </circle>
+
+        </svg>
+
+
+        <div id="timer">
+            25:00
+        </div>
+
+    </div>
+
+
+
+    <!-- Settings -->
+
+    <div class="settings">
+
+
+        <label>
+            Focus Time (minutes)
+        </label>
+
+        <input 
+        id="focusInput"
+        type="number"
+        value="25">
+
+
+
+        <label>
+            Break Time (minutes)
+        </label>
+
+        <input 
+        id="breakInput"
+        type="number"
+        value="5">
+
+
+    </div>
+
+
+
+
+    <!-- Buttons -->
+
+    <div class="buttons">

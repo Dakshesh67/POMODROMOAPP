@@ -1,0 +1,466 @@
+/* ==============================
+   POMODORO PRO v1.5
+   FULL CSS
+   ============================== */
+
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+
+    background: linear-gradient(
+        135deg,
+        #667eea,
+        #764ba2
+    );
+
+
+    transition: 0.4s;
+
+}
+
+
+
+
+/* Main Card */
+
+.container {
+
+    width: 390px;
+
+    padding: 35px;
+
+    text-align: center;
+
+
+    background: rgba(255,255,255,0.95);
+
+    border-radius: 25px;
+
+
+    box-shadow:
+
+    0 20px 45px rgba(0,0,0,0.25);
+
+
+    transition: 0.4s;
+
+}
+
+
+
+
+
+h1 {
+
+    font-size: 32px;
+
+    margin-bottom: 10px;
+
+}
+
+
+
+#mode {
+
+    font-size: 20px;
+
+    margin-bottom: 25px;
+
+    transition: 0.4s;
+
+}
+
+
+
+
+/* ==============================
+   Circular Timer
+   ============================== */
+
+
+.timer-circle {
+
+    position: relative;
+
+    width: 220px;
+
+    height: 220px;
+
+    margin: auto;
+
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+
+.timer-circle svg {
+
+    position: absolute;
+
+    width: 220px;
+
+    height: 220px;
+
+
+    transform: rotate(-90deg);
+
+}
+
+
+
+circle {
+
+    fill: none;
+
+    stroke-width: 12;
+
+}
+
+
+
+.background-circle {
+
+    stroke: #e5e5e5;
+
+}
+
+
+
+.progress-circle {
+
+    stroke: #ff6347;
+
+    stroke-linecap: round;
+
+
+    stroke-dasharray: 565;
+
+    stroke-dashoffset: 0;
+
+
+    transition:
+
+    stroke-dashoffset 1s linear;
+
+}
+
+
+
+
+#timer {
+
+    font-size: 55px;
+
+    font-weight: bold;
+
+    z-index: 2;
+
+
+    transition:
+
+    transform 0.3s ease;
+
+}
+
+
+
+
+
+/* Timer pulse */
+
+.timer-running {
+
+    animation: pulse 1.5s infinite;
+
+}
+
+
+
+@keyframes pulse {
+
+
+    0% {
+
+        transform: scale(1);
+
+    }
+
+
+    50% {
+
+        transform: scale(1.05);
+
+    }
+
+
+    100% {
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+
+
+
+/* ==============================
+   Inputs
+   ============================== */
+
+
+.settings {
+
+    margin-top: 25px;
+
+}
+
+
+
+.settings label {
+
+    display: block;
+
+    margin-top: 12px;
+
+    font-size: 15px;
+
+}
+
+
+
+input {
+
+    width: 90px;
+
+    padding: 9px;
+
+
+    margin-top: 5px;
+
+
+    border-radius: 10px;
+
+    border: 1px solid #ccc;
+
+
+    text-align: center;
+
+    font-size: 16px;
+
+}
+
+
+
+
+/* ==============================
+   Buttons
+   ============================== */
+
+
+.buttons {
+
+    margin-top: 25px;
+
+}
+
+
+
+button {
+
+    padding: 12px 18px;
+
+    margin: 5px;
+
+
+    border: none;
+
+    border-radius: 12px;
+
+
+    background: #667eea;
+
+    color: white;
+
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+
+    transition:
+
+    transform 0.2s,
+
+    box-shadow 0.2s;
+
+}
+
+
+
+button:hover {
+
+    transform: translateY(-3px);
+
+
+    box-shadow:
+
+    0 8px 15px rgba(0,0,0,0.2);
+
+}
+
+
+
+button:active {
+
+    transform: scale(0.95);
+
+}
+
+
+
+/* Theme Button */
+
+#themeBtn {
+
+    margin-top: 15px;
+
+    background: #333;
+
+}
+
+
+
+
+/* ==============================
+   Sessions
+   ============================== */
+
+
+.stats {
+
+    margin-top: 25px;
+
+    padding: 12px;
+
+
+    border-radius: 15px;
+
+
+    background: #f3f3f3;
+
+}
+
+
+
+#sessions {
+
+    color: #ff6347;
+
+    font-weight: bold;
+
+}
+
+
+
+
+
+/* ==============================
+   DARK MODE
+   ============================== */
+
+
+body.dark {
+
+
+    background: linear-gradient(
+
+        135deg,
+
+        #111,
+
+        #333
+
+    );
+
+}
+
+
+
+body.dark .container {
+
+
+    background:
+
+    rgba(30,30,30,0.95);
+
+
+    color: white;
+
+}
+
+
+
+body.dark input {
+
+
+    background: #333;
+
+    color: white;
+
+    border-color: #555;
+
+}
+
+
+
+body.dark .stats {
+
+
+    background: #333;
+
+}
+
+
+
+body.dark .background-circle {
+
+
+    stroke: #555;
+
+}
+
+
+
+body.dark #themeBtn {
+
+
+    background: #eee;
+
+    color: #111;
+
+}
